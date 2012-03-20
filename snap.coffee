@@ -36,7 +36,6 @@ snapTmp = (msg) ->
   data = _format msg
   tmpSnap[data.room] = data.val
   tmpSnap[data.key]  = data.val
-  console.log tmpSnap
 
 snap = (msg, name, cb) ->
   data = _format msg, name
@@ -129,7 +128,6 @@ _add = (msg, room, val) ->
   msg.robot.brain.save()
 
 _getList = (msg, room) ->
-  console.log msg.robot.brain.data.snap
   unless msg.robot.brain.data.snap?[room]
     return ["no data"]
   else
