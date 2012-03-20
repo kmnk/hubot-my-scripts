@@ -85,9 +85,9 @@ _isCommand = (msg) ->
   robot = msg.robot
   if robot.alias
     alias = robot.alias.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") # escape alias for regexp
-    newRegex = new RegExp("^(?:#{alias}[:,]?|#{@name}[:,]?)\\s*(?:#{pattern})", modifiers)
+    newRegex = new RegExp("^(?:#{alias}[:,]?|#{robot.name}[:,]?)", 'i')
   else
-    newRegex = new RegExp("^#{@name}[:,]?\\s*(?:#{pattern})", modifiers)
+    newRegex = new RegExp("^#{robot.name}[:,]?", 'i')
 
   msg.message.text.match(newRegex)
 
