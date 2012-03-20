@@ -3,8 +3,21 @@ _.str = require('underscore.string')
 
 amazon_tag = 'onawhim06-22'
 engine =
+  oreillyjapan:
+    name: "O'Reilly Japan"
+    default: false
+    uri: 'http://www.oreilly.co.jp'
+    path: '/app/search'
+    keywordQueryKey: 'q'
+  oreilly:
+    name: "O'Reilly"
+    default: false
+    uri: 'http://search.oreilly.com'
+    path: '/'
+    keywordQueryKey: 'q'
   google:
     name: 'Google'
+    default: true
     uri:  'https://www.google.co.jp'
     path: '/search'
     query:
@@ -14,6 +27,7 @@ engine =
     keywordQueryKey: 'q'
   amazon:
     name: 'Amazon.co.jp'
+    default: true
     uri:  'http://www.amazon.co.jp'
     path: '/mn/search'
     query:
@@ -23,11 +37,13 @@ engine =
     keywordQueryKey: 'field-keywords'
   wikipedia:
     name: 'Wikipedia'
+    default: true
     uri:  'http://ja.wikipedia.org'
     path: '/wiki/'
     keywordQueryKey: false
   uncyclopedia:
     name: 'アンサイクロペディア'
+    default: true
     uri:  'http://ja.uncyclopedia.info'
     path: '/wiki/'
     keywordQueryKey: false
@@ -63,6 +79,7 @@ searchMe = (msg, engineName, keywords, cb) ->
     if res then cb res
   else
     for key, data of engine
+      unless data.default then continue
       res = _build data, encodedKeywords
       if res then cb res
 
