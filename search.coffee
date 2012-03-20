@@ -3,6 +3,12 @@ _.str = require('underscore.string')
 
 amazon_tag = 'onawhim06-22'
 engine =
+  alc:
+    name: '英辞郎 on the WEB'
+    default: false
+    uri: 'http://eow.alc.co.jp'
+    path: '/search'
+    keywordQueryKey: 'q'
   oreillyjapan:
     name: "O'Reilly Japan"
     default: false
@@ -49,6 +55,10 @@ engine =
     keywordQueryKey: false
 
 module.exports = (robot) ->
+  robot.respond /search-engines?\?$/i, (msg) ->
+    engineKeys = _.map engine, (v, k) -> k
+    msg.notice engineKeys.join ', '
+
   robot.respond /(?:(.+) )?search (.+)$/i, (msg) ->
     searchMe msg, msg.match[1], msg.match[2], (res) ->
       msg.notice res
